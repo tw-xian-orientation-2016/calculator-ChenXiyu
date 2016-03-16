@@ -26,32 +26,32 @@
 	</div>
 	<div class="row">
 		<button type="button" class="btn btn-default col-xs-3" onclick="clearScreen()" >AC</button>
-		<button type="button" class="btn btn-default col-xs-3" data-operator="-/+" onclick="operat(this)">-/+</button>
-		<button type="button" class="btn btn-default col-xs-3" data-operator="%" onclick="operat(this)">%</button>
-		<button type="button" class="btn btn-warning col-xs-3" data-operator="*" onclick="operat(this)" >X</button>
+		<button type="button" class="btn btn-default col-xs-3" data-operator="-/+" onclick="negativeOperator()">-/+</button>
+		<button type="button" class="btn btn-default col-xs-3" data-operator="%" onclick="persentOperat()">%</button>
+		<button type="button" class="btn btn-warning col-xs-3" data-operator="*" onclick="multiplication()" >X</button>
 	</div>
 	<div class="row">
 		<button type="button" class="btn btn-default col-xs-3 " name="number" data-number="7" onclick="clickNumber(this)">7</button>
 		<button type="button" class="btn btn-default col-xs-3 " name="number" data-number="8" onclick="clickNumber(this)">8</button>
 		<button type="button" class="btn btn-default col-xs-3 " name="number" data-number="9" onclick="clickNumber(this)">9</button>
-		<button type="button" class="btn btn-warning col-xs-3" data-operator="/" onclick="operat(this)">/</button>
+		<button type="button" class="btn btn-warning col-xs-3" data-operator="/" onclick="division()">/</button>
 	</div>
 	<div class="row">
 		<button type="button" class="btn btn-default col-xs-3 " name="number"  data-number="4"onclick="clickNumber(this)">4</button>
 		<button type="button" class="btn btn-default col-xs-3 " name="number" data-number="5" onclick="clickNumber(this)">5</button>
 		<button type="button" class="btn btn-default col-xs-3 " name="number" data-number="6" onclick="clickNumber(this)">6</button>
-		<button type="button" class="btn btn-warning col-xs-3 " data-operator="+" onclick="operat(this)">+</button>
+		<button type="button" class="btn btn-warning col-xs-3 " data-operator="+" onclick="plus()">+</button>
 	</div>
 	<div class="row">
 		<button type="button" class="btn btn-default col-xs-3 " name="number" data-number="1" onclick="clickNumber(this)">1</button>
 		<button type="button" class="btn btn-default col-xs-3 " name="number" data-number="2" onclick="clickNumber(this)">2</button>
 		<button type="button" class="btn btn-default col-xs-3 " name="number" data-number="3" onclick="clickNumber(this)">3</button>
-		<button type="button" class="btn btn-warning col-xs-3" data-operator="-" onclick="operat(this)">-</button>
+		<button type="button" class="btn btn-warning col-xs-3" data-operator="-" onclick="sub()">-</button>
 	</div>
 	<div class="row">
 		<button type="button" class="btn btn-default col-xs-6 " name="number" data-number="0" onclick="clickNumber(this)">0</button>
 		<button type="button" class="btn btn-default col-xs-3 " name="number" data-number="." onclick="clickNumber(this)">.</button>
-		<button type="button" class="btn btn-warning col-xs-3 " data-operator="=" onclick="operat(this)">=</button>
+		<button type="button" class="btn btn-warning col-xs-3 " data-operator="=" onclick="equal()">=</button>
 	</div>
 </div>
 </body>

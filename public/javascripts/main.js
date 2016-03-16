@@ -1,134 +1,126 @@
 var number1 = null;
 var operator = null;
 var flag = false;
+var result = '0';
 
 function clickNumber(e){
-	var screen = $("input");
-	var num = e.dataset.number
-	var preNum = screen.val();
-	if(flag == false){
-		screen.val(preNum + num);
-	}else{
-		number1 = screen.val();
-		screen.val(num);
-		flag = false;
+	if(result === '0'){
+		result = '';
 	}
+	result += e.dataset.number;;
+	$("input").val(result);
 }
 
 function clearScreen(){
 	number1 = null;
 	operator = null;
-	flag = false;
-	$("input").val("");
+	result= '0';
+	$("input").val(result);
 }
 
-function operat(e){
-	if (operator == null){
-		number1 = $("input").val();
-		operator = e.dataset.operator;
-		$("input").val("");
-	}else{
-		switch(operator){
-			case "+":
-				number1 = service.plus(number1 , $("input").val());
-				operator = e.dataset.operator;
-				$("input").val(number1+"");
-				flag = true;
-				break;
-			case "=":
-				switch(operator){
-					case "+":
-						number1 = service.plus(number1 , $("input").val());
-						operator = e.dataset.operator;
-						$("input").val(number1+"");
-						flag = true;
-						break;
-					case "*":
-						number1 = service.multiplication(number1 , $("input").val());
-						operator = e.dataset.operator;
-						$("input").val(number1+"");
-						flag = true;
-						break;
-					case "-":
-						number1 = service.sub(number1 , $("input").val());
-						operator = e.dataset.operator;
-						$("input").val(number1+"");
-						flag = true;
-						break;
-					case "/":
-						number1 = service.division(number1 , $("input").val());
-						operator = e.dataset.operator;
-						$("input").val(number1+"");
-						flag = true;
-						break;
-					case "%":
-						number1 = service.persent($("input").val());
-						$("input").val(number1+"");
-						flag = true;
-						break;
-					default:
-						number1 = service.negative($("input").val());
-						$("input").val(number1 +"");
-						flag = true;
-						break;
-				}
-				$("input").val(number1+"");
-				operator = null;
-				number1 = null;
-				break;
-			case "*":
-				number1 = service.multiplication(number1 , $("input").val());
-				operator = e.dataset.operator;
-				$("input").val(number1+"");
-				flag = true;
-				break;
-			case "-":
-				number1 = service.sub(number1 , $("input").val());
-				operator = e.dataset.operator;
-				$("input").val(number1+"");
-				flag = true;
-				break;
-			case "/":
-				number1 = service.division(number1 , $("input").val());
-				operator = e.dataset.operator;
-				$("input").val(number1+"");
-				flag = true;
-				break;
-			case "%":
-				number1 = service.persent($("input").val());
-				$("input").val(number1+"");
-				flag = true;
-				break;
-			default:
-				number1 = service.negative($("input").val());
-				$("input").val(number1 +"");
-				flag = true;
-				break;
-		}
+function negativeOperator(){
+	if(result != '0'){
+		service.negative($("input").val(), function(resultNumber){
+			$("input").val(resultNumber);
+		});
 	}
 }
+
+function persentOperat(){
+	if(result != '0'){
+		service.persent($("input").val(),function(resultNumber){
+			$("input").val(resultNumber);
+		});
+	}
+}
+
+function plus(){
+	number = result;
+	result ='0';
+	if(operator != null && number != null){
+		calculat(operator);
+	}
+	operator = '+';
+}
+
+function division(){
+	number = result;
+	result ='0';
+	if(operator != null && number != null){
+		calculat(operator);
+	}
+	operator = '/';
+}
+
+function multiplication(){
+	number = result;
+	result ='0';
+	if(operator != null && number != null){
+		calculat(operator);
+	}
+	operator = 'x';
+}
+function sub(){
+	number = result;
+	result ='0';
+	if(operator != null && number != null){
+		calculat(operator);
+	}
+	operator = '-';
+}
+
+
+function calculat(o){
+	switch(o){
+		case '+':
+			service.plus(number ,$("input").val(), statusUpdater);
+			break;
+		case '-':
+			service.sub(number ,$("input").val(), statusUpdater);
+			break;
+		case 'x':
+			service.multiplication(number ,$("input").val(), statusUpdater);
+			break;
+		case '/':
+			survice.division(number ,$("input").val(), statusUpdater);
+			break;
+	}
+}
+
+function statusUpdater(r){
+	$("input").val(r);
+	number = r;
+	result ='0';
+}
+
 var service = {};
-
-service.plus = function(number1 , number2){
-	return Number(number1) + Number(number2)
+service.plus = function(number1 , number2 ,callback){
+	$.get('/plus',{'number1':number1,'number2':number2},function(result){
+		callback(result);
+	})
 }
-
-service.multiplication = function(number1 , number2){
-	return Number(number1)*Number(number2);
+service.multiplication = function(number1 , number2, callback){
+	$.get('/multiplication',{'number1':number1,'number2':number2},function(result){
+		callback(result);
+	})
 }
-
-service.sub = function(number1, number2){
-	return Number(number1 , number2);
+service.sub = function(number1, number2 ,callback){
+	$.get('/sub',{'number1':number1,'number2':number2},function(result){
+		callback(result);
+	})
 }
-
-service.persent = function(number1){
-	return Number(number1) / 100;
+service.persent = function(number1, callback){
+	$.get('/persent',{number:number1},function(result){
+		callback(result);
+	});
 }
-
-service.division = function(number1 , number2){
-	return Number(number1) / Number(number2)
+service.division = function(number1 , number2 , callback){
+	$.get('/division',{'number1':number1,'number2':number2},function(result){
+		callback(result);
+	})
 }
-
-service.negative = function(number1 ){
-	return -Number(number1)
+service.negative = function(number1, callback ){
+	$.get('/negative',{number:number1},function(result){
+		callback(result);
+	});
 }
